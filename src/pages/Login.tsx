@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
 
@@ -16,17 +16,19 @@ const Login = () => {
 
     try {
       const response = await login({ email, password }).unwrap();
-      
+
       // Store accessToken in localStorage
       localStorage.setItem("accessToken", response.data.token);
 
       toast.success("Login successful!");
-      
+
       // Navigate to dashboard
       navigate("/dashboard/products");
     } catch (error: any) {
       console.error("Login error:", error);
-      toast.error(error?.data?.message || "Login failed. Please check your credentials.");
+      toast.error(
+        error?.data?.message || "Login failed. Please check your credentials."
+      );
     }
   };
 
@@ -61,25 +63,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex justify-between items-center text-sm mb-6">
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 accent-white mr-2 cursor-pointer"
-              />
-              <span>Remember Me</span>
-            </label>
-            <a
-              href="#"
-              className="text-white hover:underline transition-all"
-            >
-              Forgot Password?
-            </a>
-          </div>
-
           {/* Login Button */}
           <div className="flex justify-center mt-6">
             <button
@@ -89,19 +72,6 @@ const Login = () => {
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>
-          </div>
-
-          {/* Register Link */}
-          <div className="text-center text-sm mt-6">
-            <p>
-              Don't have an account?{" "}
-              <a
-                href="#"
-                className="text-white font-semibold hover:underline transition-all"
-              >
-                Register
-              </a>
-            </p>
           </div>
         </form>
       </div>

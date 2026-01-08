@@ -23,7 +23,7 @@ interface LoginResponse {
 export const authApiSlice = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://lavishly-fogless-sang.ngrok-free.dev/api/v1/auth",
+        baseUrl: "https://api-knowledge-think.vercel.app/",
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {

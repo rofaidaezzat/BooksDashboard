@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../store';
-import type { GetBooksResponse, GetBooksParams, IBook } from '../../types/books';
+
+import type { GetBooksResponse, GetBooksParams } from '../../types/books';
 
 
 
@@ -8,7 +8,7 @@ import type { GetBooksResponse, GetBooksParams, IBook } from '../../types/books'
 export const contactusApiSlice = createApi({
     reducerPath: 'contactusApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://lavishly-fogless-sang.ngrok-free.dev/',
+        baseUrl: 'https://api-knowledge-think.vercel.app/',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {

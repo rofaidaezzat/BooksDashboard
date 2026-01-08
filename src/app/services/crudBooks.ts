@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../store';
+
 import type { GetBooksResponse, GetBooksParams, IBook } from '../../types/books';
 
 // Define types for Create/Update that were inline or missing
@@ -24,7 +24,7 @@ export interface UpdateBookRequest {
 export const booksApiSlice = createApi({
     reducerPath: 'booksApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://lavishly-fogless-sang.ngrok-free.dev/',
+        baseUrl: 'https://api-knowledge-think.vercel.app/',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {
