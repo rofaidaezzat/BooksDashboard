@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useLogoutMutation } from "../app/services/crudAuth";
+
 
 interface SidebarProps {
   isOpen: boolean;
