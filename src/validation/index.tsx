@@ -12,12 +12,6 @@ export const bookValidationSchema = Yup.object().shape({
     .required("Book description is required")
     .min(20, "Too short book description"),
   
-  price: Yup.number()
-    .required("Book price is required")
-    .positive("Book price must be positive")
-    .max(200000, "Too long book price")
-    .typeError("Book price must be a number"),
-  
   image: Yup.string()
     .required("Book image is required"),
 });
@@ -26,6 +20,5 @@ export const bookValidationSchema = Yup.object().shape({
 export interface IBookFormData {
   title: string;
   description: string;
-  price: number;
   image: string;
 }

@@ -7,7 +7,7 @@ export interface CreateBookRequest {
     name: string; // Legacy field mapping, will check if UI sends 'title' or 'name'
     title: string;
     description?: string;
-    price: number;
+
     image: File; // Changed to single file as per API implication, assuming file upload
     category?: string;
     stock?: number;
@@ -16,7 +16,7 @@ export interface CreateBookRequest {
 export interface UpdateBookRequest {
     title?: string;
     description?: string;
-    price?: number;
+
     image?: File;
 }
 
@@ -24,7 +24,7 @@ export interface UpdateBookRequest {
 export const booksApiSlice = createApi({
     reducerPath: 'booksApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api-knowledge-think.vercel.app/',
+        baseUrl: 'https://knowledge-think-eight.vercel.app/',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {

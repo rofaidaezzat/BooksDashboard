@@ -8,7 +8,7 @@ import type { GetBooksResponse, GetBooksParams } from '../../types/books';
 export const contactusApiSlice = createApi({
     reducerPath: 'contactusApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api-knowledge-think.vercel.app/',
+        baseUrl: 'https://knowledge-think-eight.vercel.app/',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {

@@ -13,7 +13,6 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
   const [createBook, { isLoading }] = useCreateBookMutation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -29,7 +28,6 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
         {
           title: title.trim(),
           description,
-          price: parseFloat(price),
           image: image ? "valid" : "", // Just check if image exists
         },
         { abortEarly: false }
@@ -55,7 +53,6 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
     const formData = new FormData();
     formData.append("title", title.trim());
     formData.append("description", description);
-    formData.append("price", price);
     formData.append("image", image);
 
     try {
@@ -63,7 +60,6 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
       toast.success("Book created successfully");
       setTitle("");
       setDescription("");
-      setPrice("");
       setImage(null);
       setErrors({});
       onClose();
@@ -106,22 +102,7 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Price (EGP)</label>
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            className={`mt-1 block w-full rounded-md border ${
-              errors.price ? "border-red-500" : "border-gray-300"
-            } px-3 py-2 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-purple-500`}
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          {errors.price && (
-            <p className="mt-1 text-sm text-red-600">{errors.price}</p>
-          )}
-        </div>
+
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Image</label>

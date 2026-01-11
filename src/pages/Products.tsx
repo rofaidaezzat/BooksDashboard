@@ -47,14 +47,6 @@ const Products = () => {
   };
 
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "EGP", // Using EGP as in original file or user preference. Image showed $, but user prompt "do not change table" often implies "keep data format same". I'll skip to EGP if that was original, or USD if I changed it. I think I changed it to USD. I will check. Original was EGP. I will stick to EGP or USD? The prompt says "do not change table", implies "keep it as it was before I messed it up". Before I messed it up (Book Cards), it was EGP.
-      minimumFractionDigits: 2,
-    }).format(amount);
-  };
-
   const columns = [
     {
       header: "Image",
@@ -77,14 +69,7 @@ const Products = () => {
     //   header: "Category",
     //   accessor: (row: IBook) => row.category, 
     // },
-    {
-      header: "Price",
-      accessor: (row: IBook) => (
-          <span className="font-bold text-purple-700">
-            {formatCurrency(row.price)}
-          </span>
-      ),
-    },
+
     // Stock and SalesCount not in API response
     // { header: "Stock", accessor: "stock" as keyof IBook },
     

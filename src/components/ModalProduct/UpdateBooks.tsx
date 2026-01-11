@@ -15,7 +15,6 @@ const UpdateBooks = ({ isOpen, onClose, book }: UpdateBookProps) => {
   const [updateBook, { isLoading }] = useUpdateBookMutation();
   const [title, setTitle] = useState(book.title);
   const [description, setDescription] = useState(book.description);
-  const [price, setPrice] = useState(String(book.price));
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -23,7 +22,6 @@ const UpdateBooks = ({ isOpen, onClose, book }: UpdateBookProps) => {
     if (isOpen && book) {
       setTitle(book.title);
       setDescription(book.description);
-      setPrice(String(book.price));
       setImage(null);
       setErrors({});
     }
@@ -41,7 +39,6 @@ const UpdateBooks = ({ isOpen, onClose, book }: UpdateBookProps) => {
         {
           title: title.trim(),
           description,
-          price: parseFloat(price),
           image: book.image || "valid", // Existing image or new one
         },
         { abortEarly: false }
@@ -61,7 +58,6 @@ const UpdateBooks = ({ isOpen, onClose, book }: UpdateBookProps) => {
     const formData = new FormData();
     formData.append("title", title.trim());
     if (description) formData.append("description", description);
-    formData.append("price", price);
     if (image) {
       formData.append("image", image);
     }
@@ -109,22 +105,7 @@ const UpdateBooks = ({ isOpen, onClose, book }: UpdateBookProps) => {
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Price (EGP)</label>
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            className={`mt-1 block w-full rounded-md border ${
-              errors.price ? "border-red-500" : "border-gray-300"
-            } px-3 py-2 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-purple-500`}
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          {errors.price && (
-            <p className="mt-1 text-sm text-red-600">{errors.price}</p>
-          )}
-        </div>
+
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Image</label>

@@ -8,13 +8,7 @@ interface ViewBookProps {
 }
 
 const ViewBook = ({ isOpen, onClose, book }: ViewBookProps) => {
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "EGP",
-      minimumFractionDigits: 2,
-    }).format(amount);
-  };
+
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -58,15 +52,7 @@ const ViewBook = ({ isOpen, onClose, book }: ViewBookProps) => {
             </p>
           </div>
 
-          {/* Price */}
-          <div>
-            <label className="text-xs font-semibold text-purple-700 uppercase tracking-wider">
-              Price
-            </label>
-            <p className="text-2xl font-bold text-purple-600 mt-1">
-              {formatCurrency(book.price)}
-            </p>
-          </div>
+
 
           {/* Metadata Grid */}
           <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">

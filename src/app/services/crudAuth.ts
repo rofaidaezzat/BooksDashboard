@@ -23,7 +23,7 @@ interface LoginResponse {
 export const authApiSlice = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://api-knowledge-think.vercel.app/",
+        baseUrl: "https://knowledge-think-eight.vercel.app/",
         prepareHeaders: (headers) => {
             const token = localStorage.getItem("accessToken");
             if (token) {
