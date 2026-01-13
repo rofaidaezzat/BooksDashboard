@@ -1,12 +1,10 @@
-export interface IBook {
+export interface INewspaper {
     _id: string;
     title: string;
     description: string;
-    image: string;
-    category: string;
     createdAt: string;
     updatedAt: string;
-    slug: string;
+    slug?: string;
 }
 
 export interface Pagination {
@@ -15,16 +13,16 @@ export interface Pagination {
     numberOfPages: number;
 }
 
-export interface GetBooksResponse {
+export interface GetNewspapersResponse {
     status: string;
     code: number;
     message: string;
     results: number;
     pagination: Pagination;
-    data: IBook[];
+    data: INewspaper[];
 }
 
-export interface GetBooksParams {
+export interface GetNewspapersParams {
     page?: number;
     limit?: number;
     sort?: string;

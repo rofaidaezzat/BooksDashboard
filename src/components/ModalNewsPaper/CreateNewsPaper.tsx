@@ -1,36 +1,29 @@
 import { useState } from "react";
-import { useCreateBookMutation } from "../../app/services/crudBooks";
+import { useCreateNewspaperMutation } from "../../app/services/crudNewsPaper";
 import Modal from "../Modal";
 import toast from "react-hot-toast";
-import { bookValidationSchema } from "../../validation";
+import { newspaperValidationSchema } from "../../validation";
 
-interface CreateNewBookProps {
+interface CreateNewsPaperProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
-  const [createBook, { isLoading }] = useCreateBookMutation();
+const CreateNewsPaper = ({ isOpen, onClose }: CreateNewsPaperProps) => {
+  const [createNewspaper, { isLoading }] = useCreateNewspaperMutation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("الحقائق التدريبيه");
-  const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Clear previous errors
     setErrors({});
 
-    // Validate form data
     try {
-      await bookValidationSchema.validate(
+      await newspaperValidationSchema.validate(
         {
           title: title.trim(),
           description,
-          type,
-          image: image ? "valid" : "", // Just check if image exists
         },
         { abortEarly: false }
       );
@@ -46,34 +39,21 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
       return;
     }
 
-    if (!image) {
-      setErrors({ image: "Book image is required" });
-      toast.error("Please select an image");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("title", title.trim());
-    formData.append("description", description);
-    formData.append("type", type);
-    formData.append("image", image);
-
     try {
-      await createBook(formData).unwrap();
-      toast.success("Book created successfully");
+      await createNewspaper({ title: title.trim(), description }).unwrap();
+      toast.success("Newspaper created successfully");
       setTitle("");
       setDescription("");
-      setImage(null);
       setErrors({});
       onClose();
     } catch (error: any) {
       console.error(error);
-      toast.error(error?.data?.message || "Failed to create book");
+      toast.error(error?.data?.message || "Failed to create newspaper");
     }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add New Book">
+    <Modal isOpen={isOpen} onClose={onClose} title="Add New Newspaper">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Title</label>
@@ -105,46 +85,7 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Category</label>
-          <select
-            className={`mt-1 block w-full rounded-md border ${
-              errors.type ? "border-red-500" : "border-gray-300"
-            } px-3 py-2 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-purple-500`}
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value="الكتب">الكتب</option>
-            <option value="الحقائق التدريبيه">الحقائق التدريبيه</option>
-          </select>
-          {errors.type && (
-            <p className="mt-1 text-sm text-red-600">{errors.type}</p>
-          )}
-        </div>
 
-
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            className={`mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold ${
-              errors.image
-                ? "file:bg-red-50 file:text-red-700"
-                : "file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
-            }`}
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                setImage(e.target.files[0]);
-                setErrors({ ...errors, image: "" });
-              }
-            }}
-          />
-          {errors.image && (
-            <p className="mt-1 text-sm text-red-600">{errors.image}</p>
-          )}
-        </div>
 
         <div className="flex justify-end gap-3 pt-4">
           <button
@@ -159,7 +100,7 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
             disabled={isLoading}
             className="rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white hover:from-purple-700 hover:to-pink-700 disabled:opacity-50"
           >
-            {isLoading ? "Creating..." : "Create Book"}
+            {isLoading ? "Creating..." : "Create Newspaper"}
           </button>
         </div>
       </form>
@@ -167,5 +108,4 @@ const CreateNewBook = ({ isOpen, onClose }: CreateNewBookProps) => {
   );
 };
 
-export default CreateNewBook;
-
+export default CreateNewsPaper;

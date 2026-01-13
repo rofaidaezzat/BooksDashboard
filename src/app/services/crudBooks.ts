@@ -9,7 +9,7 @@ export interface CreateBookRequest {
     description?: string;
 
     image: File; // Changed to single file as per API implication, assuming file upload
-    category?: string;
+    type?: string;
     stock?: number;
 }
 

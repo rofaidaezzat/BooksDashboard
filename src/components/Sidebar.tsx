@@ -16,6 +16,8 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const menuItems = [
     { path: "/dashboard/products", label: "Books", icon: "�" },
     { path: "/dashboard/contactus", label: "Contact Us", icon: "✉️" },
+    { path: "/dashboard/newsPaper", label: "News Paper", icon: "📰" },
+    { path: "/dashboard/courses", label: "Courses", icon: "📚" },
   ];
 
   const handleLogout = async () => {

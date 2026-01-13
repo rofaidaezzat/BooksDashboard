@@ -1,30 +1,27 @@
-export interface IBook {
+export interface ICourse {
     _id: string;
+    name: string;
     title: string;
-    description: string;
+    type: string;
     image: string;
-    category: string;
     createdAt: string;
     updatedAt: string;
-    slug: string;
 }
 
 export interface Pagination {
     currentPage: number;
     limit: number;
     numberOfPages: number;
+    next?: number;
 }
 
-export interface GetBooksResponse {
-    status: string;
-    code: number;
-    message: string;
+export interface GetCoursesResponse {
     results: number;
     pagination: Pagination;
-    data: IBook[];
+    data: ICourse[];
 }
 
-export interface GetBooksParams {
+export interface GetCoursesParams {
     page?: number;
     limit?: number;
     sort?: string;
